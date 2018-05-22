@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <h1>{{ msg+"-"+count }}</h1>
+    <h2 @click="increment">Essential Links</h2>
     <ul>
       <li>
         <a href="https://vuejs.org" target="_blank">
@@ -57,12 +57,22 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "HelloWorld",
   data() {
     return {
       msg: "Welcome to Your Vue.js App"
     };
+  },
+  computed: mapState({
+    // 箭头函数可使代码更简练
+    count: state => state.count
+  }),
+  methods: {
+    ...mapMutations([
+      "increment" // 将 `this.increment()` 映射为 `this.$store.commit('increment')`
+    ])
   }
 };
 </script>
